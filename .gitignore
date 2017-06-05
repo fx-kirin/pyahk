@@ -28,3 +28,6 @@ MANIFEST
 *.un~
 *.blend*
 build/**
+.idea
+!ahk/AutoHotkey.dll
+!LICENSE*
