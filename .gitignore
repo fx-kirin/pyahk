@@ -29,5 +29,5 @@ MANIFEST
 *.blend*
 build/**
 .idea
-!ahk/AutoHotkey.dll
+!AutoHotkey.dll
 !LICENSE*
