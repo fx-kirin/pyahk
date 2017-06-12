@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, division, unicode_literals
+
 """Test AutoHotKey low-level wrappers."""
 import os, time, ctypes
 import unittest
@@ -8,6 +11,7 @@ except ImportError:
     import sys
     sys.path = [os.path.abspath("../")] + sys.path
     import ahk
+
 
 class Test_lowlevel(unittest.TestCase):
     """Test ahk misc. function wrappers."""
@@ -258,7 +262,7 @@ class Test_lowlevel(unittest.TestCase):
         #ahk.exec_line(ahk.exec_line(res, 0))
         ahk.exec_line(res, 0)
         res = ahk.get("test")
-        print res
+        print(res)
         self.assertEqual(res, "10",
                          msg="Value={0}, script not evaluated?".format(res))
 

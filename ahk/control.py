@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, division, unicode_literals
+
 """OO wrapper around the AutoHotKey control manipulation functions.
 
 This module gives a simplified wrapper around the loose collection of AHK

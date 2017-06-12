@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, division, unicode_literals
+
 """Low-level wrappers around The AutoHotKey library.
 
 Wrappers are provided for the functions found here:
@@ -6,17 +9,49 @@ Wrappers are provided for the functions found here:
 import ctypes, time, os
 from functools import wraps
 
-# This try/except allows documentation to be generated without access to the dll
-try:
-    _ahk = ctypes.cdll.AutoHotkey #load AutoHotKey dll
-except OSError:
-    # Try loading the dll from the module directory
-    path = os.path.dirname(__file__)
-    dllpath = os.path.join(path, 'AutoHotKey.dll')
+from builtins import str
+
+_ahk = None
+def load_ahk_dll():
+    global _ahk
+    # This try/except allows documentation to be generated without access to the dll
     try:
-        _ahk = ctypes.cdll.LoadLibrary(os.path.abspath(dllpath))
+        _ahk = ctypes.cdll.AutoHotkey #load AutoHotKey dll
     except OSError:
-        print "Warning: Can't load AutoHotKey.dll, all ahk functions will fail."
+        # Try loading the dll from the module directory
+        path = os.path.dirname(__file__)
+        dllpath1 = os.path.join(path, r'ahkdll\x64w\AutoHotkey.dll')
+        dllpath2 = os.path.join(path, r'ahkdll\Win32w\AutoHotkey.dll')
+        dllpath3 = os.path.join(path, r'ahkdll\Win32a\AutoHotkey.dll')
+        dllpath4 = os.path.join(path, r'AutoHotkey.dll')
+        
+        err_cnt = 0
+        try:
+            _ahk = ctypes.cdll.LoadLibrary(os.path.abspath(dllpath1))
+            return 0
+        except OSError:
+            err_cnt += 1
+        try:
+            _ahk = ctypes.cdll.LoadLibrary(os.path.abspath(dllpath2))
+            return 0
+        except OSError:
+            err_cnt += 1
+        try:
+            _ahk = ctypes.cdll.LoadLibrary(os.path.abspath(dllpath3))
+            return 0
+        except OSError:
+            err_cnt += 1
+        try:
+            _ahk = ctypes.cdll.LoadLibrary(os.path.abspath(dllpath4))
+            return 0
+        except OSError:
+            err_cnt += 1
+            
+        if err_cnt >= 4:
+            print("Warning: Can't load AutoHotkey.dll, all ahk functions will fail.")
+            return 1
+
+load_ahk_dll()
 
 def start(filename=None, script="", options="", params=""):
     """Wrapper around ahkdll and ahktextdll.
@@ -32,7 +67,7 @@ def start(filename=None, script="", options="", params=""):
 
     :returns: Thread handle for created instance (see thread functions).
     """
-    #print filename
+    #print(filename)
     if filename:
         return _ahk.ahkdll(os.path.abspath(filename), options, params)
     else:
@@ -156,8 +191,6 @@ def set(name, value):
     """
     if not type(value) in (str,):
         value = str(value)
-    if not type(value) in (unicode,):
-        value = unicode(value)
     result = _ahk.ahkassign(name, value)
     if result == 0: # 0 for success, else -1
         return True

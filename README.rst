@@ -3,8 +3,8 @@ PYAHK AutoHotKey via Python
 :Description: Python ctypes wrapper around AutoHotKey dll.
 :License: BSD-style, see `LICENSE.txt`_
 :Author: Ed Blake <kitsu.eb@gmail.com>
-:Date: Dec 30 2014
-:Revision: 14
+:Date: 5 June 2017
+:Revision: 15
 
 Introduction
 ------------
@@ -20,7 +20,7 @@ scripting engines, and the execution of AHK commands from Python.
 
 Requirements
 ------------
-* Written for Python2.7_, not currently py3k compatible.
+* Written for Python2.7 but works in py 3.3+ also
 * Written against AutoHotkey_H ANSI 32-bit Version 1.1.8.1 (on WinXP).
 * A copy of the ANSI 32-bit dll must be provided either in the system location
   of your version of Windows, or in the same folder as the ahk.py file.
@@ -31,7 +31,7 @@ Installation
 ------------
 Get the version from PyPI using pip::
 
-    pip install pyahk
+    pip install pyahk # outdated must push this changes in there
 
 Or download the latest commit from
 `bitbucket <https://bitbucket.org/kitsu/pyahk/downloads>`_ and::

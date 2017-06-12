@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, print_function, division, unicode_literals
+
 """OO wrapper around The AutoHotKey library.
 
 This module contains higher-level object oriented wrappers around AHK scripting.
@@ -233,7 +236,7 @@ class Script(object):
         if ''.join((title, text, extitle, extext)):
             cmd = '{0}, {1}, {2}, {3}, {4}'.format(
                 cmd, title, text, extitle, extext)
-        #print cmd
+        #print(cmd)
         execute(cmd)
 
     def winActive(self, title="", text="", extitle="", extext=""):
@@ -371,7 +374,7 @@ class Script(object):
         for i in range(3):
             err += abs(c1[i] - c2[i])
         result = err/float(255*3)
-        #print c1, c2, result
+        #print(c1, c2, result)
         return result
 
     def getPixel(self, x=0, y=0, opt='RGB', screen=True):
@@ -439,8 +442,8 @@ class Script(object):
                 return False
             # Get new color reading
             current = self.getPixel(x, y)
-            #print color, current
-            #print self._color_delta(color, current)
+            #print(color, current)
+            #print(self._color_delta(color, current))
             # Check for match
             if self._color_delta(color, current) <= threshold:
                 if match:
